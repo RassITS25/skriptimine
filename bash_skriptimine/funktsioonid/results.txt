@@ -1,0 +1,170 @@
+=====
+Date: Tue Sep 29 12:42:42 PM EEST 2026
+Player: redla
+Player numbers:
+50
+12
+42
+40
+30
+Lottery numbers:
+10
+8
+45
+16
+48
+Matches: 0
+Result: Seekord tabamusi ei olnud.
+=====
+Date: Tue Sep 29 12:43:04 PM EEST 2026
+Player: m2
+Player numbers:
+34
+3
+2
+12
+23
+Lottery numbers:
+31
+50
+41
+43
+44
+Matches: 0
+Result: Seekord tabamusi ei olnud.
+=====
+Date: Tue Sep 29 12:43:20 PM EEST 2026
+Player: r3
+Player numbers:
+3
+6
+2
+21
+32
+Lottery numbers:
+10
+43
+44
+5
+47
+Matches: 0
+Result: Seekord tabamusi ei olnud.
+=====
+Date: Tue Sep 29 12:43:37 PM EEST 2026
+Player: 43
+Player numbers:
+32
+50
+34
+1
+7
+Lottery numbers:
+21
+18
+35
+50
+43
+Matches: 1
+Result: Üks tabamus.
+=====
+Date: Tue Sep 29 12:46:57 PM EEST 2026
+Player: r4
+Player numbers:
+32
+21
+12
+43
+2
+Lottery numbers:
+2
+49
+39
+27
+37
+Matches: 1
+Result: Splash 1.
+=====
+Date: Tue Sep 29 12:47:51 PM EEST 2026
+Player: s
+Player numbers:
+32
+12
+3
+5
+9
+Lottery numbers:
+25
+11
+26
+7
+27
+Matches: 0
+Result: Missed
+=====
+Date: Tue Sep 29 12:48:53 PM EEST 2026
+Player: r5
+Player numbers:
+32
+12
+3
+7
+14
+Lottery numbers:
+4
+49
+45
+7
+27
+Matches: 1
+Result: Splash 1.
+=====
+Date: Tue Sep 29 12:50:51 PM EEST 2026
+Player: r6
+Player numbers:
+6
+32
+12
+50
+2
+Lottery numbers:
+40
+29
+45
+12
+42
+Matches: 1
+Result: Sa oled ikka vaene(1/5)
+=====
+Date: Tue Sep 29 12:51:36 PM EEST 2026
+Player: r6
+Player numbers:
+50
+21
+12
+4
+6
+Lottery numbers:
+46
+43
+2
+11
+23
+Matches: 0
+Result: Raha lännu.(0/5)
+=====
+Date: Tue Sep 29 12:51:44 PM EEST 2026
+Player: 63
+Player numbers:
+34
+23
+8
+43
+2
+Lottery numbers:
+21
+23
+20
+11
+28
+Matches: 1
+Result: Sa oled ikka vaene(1/5)
