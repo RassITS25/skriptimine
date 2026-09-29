@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # 1. Algseadistus
 > player_numbers.txt
 > lottery_numbers.txt
