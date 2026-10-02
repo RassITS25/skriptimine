@@ -6,12 +6,12 @@ GitHowTo kursus: https://githowto.com/multiple_repositories
 
 ### Selles projektis siiamaani õpitu:
 
-Branchide tegemine
-Branchide mergimine
-Branchide vahel liikumine
-Simple HTML
-Git push tagasivõtmine
-Git commit tagasivõtmine
+- Branchide tegemine
+- Branchide mergimine
+- Branchide vahel liikumine
+- Simple HTML
+- Git push tagasivõtmine
+- Git commit tagasivõtmine
 
 
 ### Mõned Git käsud mida sai kasutatud
