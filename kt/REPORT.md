@@ -19,11 +19,11 @@
 
 - **Skript:** `scripts/service_check.sh`
 - **Mida skript näiliselt tegi:** Vaatas üle, et teenused töötaksid.
-- **Mis oli tegelikult vale:** Kasutas `systemctl list-unit-files` käsku, mis vaatas, et fail oleks lihtsalt olemas, kuid ei vaatand, et teenus oleks aktiivne.
+- **Mis oli tegelikult vale:** Kasutas `systemctl list-unit-files` käsku, mis vaatas, et fail oleks lihtsalt olemas, kuid ei vaatand, et teenus oleks aktiivne. Samuti oli ka puuduva/mitte-aktiivse teenuse puhul ebatäpne.
 - **Kuidas vea avastasin:** Uurisin skripti koodi ja võrdlesin kontrollimise loogikat: `systemctl is-active`.
 - **Millise käsuga kontrollisin:** `systemctl is-active ssh`, `systemctl is-active olematu_teenus_123`
 - **Parandus:** Vahetasin vana käsu uue käsuga: `systemctl is-active --quiet`.
-- **Kuidas kontrollisin pärast parandust:** Panin skripti tööle, ja lasin otsida SSH teenuse, mis oli seadmes olemas, ning skript leidis selle ja andis vastuse millega olin rahul. Testisin samuti ka teenusega, mida ei eksisteerinud masinas, ning skript sai aru, et seda ei ole 
+- **Kuidas kontrollisin pärast parandust:** Panin skripti tööle, ja lasin otsida SSH teenuse, mis oli seadmes olemas, ning skript leidis selle ja andis vastuse millega olin rahul. Testisin samuti ka teenusega, mida ei eksisteerinud masinas, ning skript sai aru, et seda ei ole. Lisasin ka, et skript oleks täpsem puuduva/mitte-aktiivse teenuse puhul. 
 - **Exit code pärast:** Töötav teenus `0`, mittetöötav teenus `1`, vigane sisend `2`.
 
 ## Probleem 3. Varukoopiaga oli probleem, kus ta tegelt polnud arhiiv
