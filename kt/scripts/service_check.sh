@@ -8,11 +8,17 @@ fi
 
 SERVICE="$1"
 
-# Kontrollime teenuse tegelikku olekut.
+# 1. Kontrollime kõigepealt, kas teenus üldse eksisteerib.
+if ! systemctl list-unit-files "${SERVICE}.service" &>/dev/null; then
+    echo "Teenus $SERVICE ei eksisteeri."
+    exit 1
+fi
+
+# 2. Kui teenus on olemas, kontrollime selle olekut.
 if systemctl is-active --quiet "${SERVICE}.service"; then
     echo "Teenus $SERVICE töötab."
     exit 0
 else
-    echo "Teenus $SERVICE ei tööta või ei eksisteeri."
+    echo "Teenus $SERVICE ei tööta."
     exit 1
 fi
