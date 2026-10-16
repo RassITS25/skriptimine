@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo "Kasutusjuhend: $0 <kasutajanimi>"
+    exit 1
+fi
+kasutajanimi=$1
+/usr/sbin/useradd $kasutajanimi -m -s /bin/bash
+kasu_tulemus=$?
+if [ $kasu_tulemus -eq 0 ]; then
+    echo "Kasutaja nimega '$kasutajanimi' on edukalt süsteemi lisatud!"
+else
+    echo "Viga: Kasutaja '$kasutajanimi' lisamine ebaõnnestus."
+    exit $kasu_tulemus
+fi
