@@ -1,0 +1,259 @@
+Ülesanne: Kasutajate kodukataloogide varundamine
+Näide
+Salvesta antud dokument antud kaustale nimega backup – EesPerenimi.docx
+
+Katseta järgmise probleemi lahendus:
+
+Eesmistes praktikumides loodud süsteemile tuleb realiseerida kasutajate kodukataloogi varundamine.
+
+Lahenduse realiseerimiseks:
+
+Katseta käsitsi mõne kasutaja(te) kodukataloogi arhiveerimist ja pakkimist 
+
+Iga kasutaja kodukataloog tuleb arhiveerida ja kokku pakkida, lisades ka varundamise kuupäev – näiteks user.21.10.2026.tar.gz 
+
+Pakitud arhiiv tuleb kopeerida varu kaustadele määratud kataloogile – valmista süsteemis selleks eraldi olev kataloog nimega home_bcp 
+
+
+Dokumenteeri oma sooritatud tegevused –pane kirja käsud, mis kasutasid iga punkti juures ja lisa ekraanipildid oma lahendusest, mis näitavad vastava punkti realiseerimist.
+
+
+Katseta loodud lahendus realiseerida kõikide kasutajate jaoks – koosta skript, mis hakkab varundama kasutajate kodukataloogid vastava kuupäeva lisamisega. Skript peab olema ka korralikult dokumenteeritud. Samuti kopeeri antud skript dokumentatsiooni.
+
+Jaga täiendatud dokument õpetajale 
+
+Skripti loomise protsessi mitte unustada committida oma tegevused, et skripti loomise protsess oleks kajastatud ka githubi repositooriumis.
+Skript ise võiks olla näiteks selline(see on näide ja selleks, et see skript töötaks õigesti - see skript tuleb käivitada /home/  kataloogis. Tehke pärast see ümber nii, et skript töötaks sõltumata sellest kus kohas ta käivitatakse):
+
+
+
+
+Skripti loomise protsessi mitte unustada committida oma tegevused, et skripti loomise protsess oleks kajastatud ka githubi repositooriumis.
+
+
+Ülesanne „Varukoopia kuupäevaga ja kontrolliga“
+
+Üldine sissejuhatus
+Täna õpime tegema ja kontrollima varukoopiaid kaustast ~/skriptlinux/praks2/src.
+ Samm-sammult liigume 12 ülesande kaudu:
+Lihtne varukoopia tegemine.
+
+
+Arhiivi kontrollimine.
+
+
+Faili suuruse näitamine.
+
+
+Ainult viimaste koopiate hoidmine.
+
+
+Failide välistamine.
+
+
+„Kuiv jooks“.
+
+
+Logimine.
+
+
+Vaba ruumi kontroll.
+
+
+SHA-256 kontrollsumma.
+
+
+Erinevate kompressorite valik.
+
+
+.backupignore kasutamine.
+
+
+Mini-test skriptiga.
+
+
+
+1) Lihtne varukoopia .tar.zst
+Algus / Sissejuhatus:
+-I 'zstd -19 -T0' → paki zstd-ga (19 = tugev pakkimine, T0 = kõik tuumad).
+
+
+-c → loo uus arhiiv.
+
+
+-f → faili nimi.
+
+
+-C → muuda ajutiselt kataloog enne pakkimist.
+
+
+dirname, basename → annavad kausta ja faili nime.
+
+
+Eesmärk: luua arhiiv ~/praks2/src kaustast ~/praks2/backup/, failinimi sisaldab kuupäeva ja kellaega.
+Kontroll: kaustas ~/praks2/backup on uus .tar.zst fail.
+Näpuviide: kasuta tar -I 'zstd -19 -T0' -cf ... -C ~/praks2 src.
+
+2) Arhiivi kontrollimine
+Algus / Sissejuhatus:
+-t → näita arhiivi sisu.
+
+
+-I 'zstd -d' → kasuta zstd lahtipakkimist.
+
+
+head -n 5 → näitab ainult esimesed 5 rida.
+
+
+Eesmärk: kontrollida, et arhiiv avaneb ja sisaldab alamkaustu.
+Kontroll: käsu väljundis näed src/docs/, src/imgs/ jms.
+Näpuviide: tar -I 'zstd -d' -tf fail.tar.zst | head -n 5.
+Mida peaksid nägema ekraanil? failide ja kaustade nimed.
+
+3) Varukoopia suurus
+Algus / Sissejuhatus:
+du -h → näitab suurust inimloetaval kujul.
+
+
+awk '{print $1}' → võtab esimese tulba (ainult suurus).
+
+
+Eesmärk: kuvada loodud arhiivi suurus.
+Kontroll: ekraanil näed näiteks 128K.
+Näpuviide: du -h ~/praks2/backup/src_*.tar.zst.
+
+4) Ainult viimased koopiad
+Algus / Sissejuhatus:
+ls -1t → näitab failid ajajärjekorras (uuemad ees).
+
+
+tail -n +4 → jätab esimesed 3 vahele.
+
+
+xargs -r rm -f → kustutab failid.
+
+
+Eesmärk: hoida alles ainult 3 kõige uuemat koopiat.
+Kontroll: pärast 5 järjestikust varundamist jääb alles 3 faili.
+Näpuviide: ls -1t *.tar.zst | tail -n +4 | xargs -r rm -f.
+
+5) Failide välistamine
+Algus / Sissejuhatus:
+--exclude='*.jpg' → jäta JPG-d vahele.
+
+
+--exclude='bin' → jäta bin/ kaust vahele.
+
+
+Eesmärk: teha arhiiv, kust on välja jäetud pildid ja bin kaust.
+Kontroll: arhiiv ei sisalda b.jpg ega run.sh.
+Näpuviide: lisa tar käsule --exclude.
+
+6) „Kuiv jooks“
+Algus / Sissejuhatus:
+-t → näitab ainult nimekirja.
+
+
+-v → kuvab rohkem infot.
+
+
+find → saab failid enne üles lugeda.
+
+
+Eesmärk: näha, mis failid läheks arhiivi, kuid uut arhiivi ei teki.
+Kontroll: ekraanil failide loend, aga kausta backup ei teki uut faili.
+Näpuviide: tar -cf - -C ~/praks2 src | tar -tvf -.
+
+7) Logimine
+Algus / Sissejuhatus:
+date '+%F %T' → ajatempel.
+
+
+>> logfile → lisa faili lõppu.
+
+
+printf → vorminda rida.
+
+
+Eesmärk: salvestada logifaili, millal varundamine algas ja lõppes.
+Kontroll: cat ~/praks2/logs/backup.log näitab uusi ridu.
+Näpuviide: lisa echo "[ $(date '+%F %T') ] BACKUP START" >> backup.log.
+
+8) Vaba ruumi kontroll
+Algus / Sissejuhatus:
+du -sb → kausta suurus baitides.
+
+
+df -B1 → vaba ruum baitides.
+
+
+awk 'NR==2{print $4}' → võtab vaba ruumi välja.
+
+
+Eesmärk: enne varundust kontrollida, kas ruumi piisab.
+Kontroll: kui ruumi on liiga vähe, varundus ei käivitu.
+Näpuviide: võrdle du ja df tulemusi.
+
+9) SHA-256 kontrollsumma. Mis on kontrollsumma,  olemas väike õpik(https://docs.google.com/document/d/19j72F5p4aJdgs6C86mBuIIDTJL1FKkrmlFAvFc8UWsc/edit?usp=sharing)
+Algus / Sissejuhatus:
+sha256sum fail → arvuta kontrollsumma.
+
+
+> → suuna väljund faili.
+
+
+sha256sum -c → kontrolli faili.
+
+
+Eesmärk: arvutada ja kontrollida arhiivi terviklikkust.
+Kontroll: käsu väljund: fail.tar.zst: OK.
+Näpuviide: sha256sum archive.tar.zst > archive.tar.zst.sha256.
+
+10) Kompressori valik
+Algus / Sissejuhatus:
+-I 'zstd' → zstd.
+
+
+-z → gzip.
+
+
+-J → xz.
+
+
+Faililaiendid näitavad, mis kompressor kasutati.
+
+
+Eesmärk: teha kolm arhiivi eri kompressoritega.
+Kontroll: ls ~/praks2/backup → näed .tar.zst, .tar.gz, .tar.xz.
+Näpuviide: tar käsul on eri võtmed iga kompressori jaoks.
+
+11) .backupignore kasutamine
+Algus / Sissejuhatus:
+.backupignore → tekstifail välistustega.
+
+
+--exclude-from → võtab välistused failist.
+
+
+Eesmärk: välistada arhiivist need kaustad ja failid, mis on kirjas .backupignore failis.
+Kontroll: kui failis on imgs/, siis arhiivis pole pilte.
+Näpuviide: tee fail src/.backupignore ja lisa reeglid.
+
+12) Nüüd skript kokku (backupexec.sh)
+Eesmärk: automaatne skript, mis teeb koopia, kontrollib(vaba ruumi, juba olemas arhiivi, kontrollsumma, et arhiiv avaneb ja sisaldab alamkaustu… ) seda ja kustutab ajutised failid, loob loggid, valib parema kompressori,.. ehk teostab kõik üleval läbitehtud punktid!
+Sissejuhatus:
+mktemp -d → ajutine kaust.
+
+
+trap '...' EXIT → puhasta, kui skript lõpeb.
+
+
+tar -tf → kontrolli arhiivi.
+
+
+echo → lihtne teade.
+
+
+
+Kontroll: ekraanil ilmub  vajalikud teated ja seletused, kas eduka või vea , või muu olukorra korral!.
+Näpuviide: kasuta mktemp ja trap, et hoida test puhas.
