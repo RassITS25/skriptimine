@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+export DEBIAN_FRONTEND=noninteractive
+
+apt update
+apt install -y gnupg ca-certificates debconf-utils wget
+
+# 1. Valime kehtiva MySQL 8.4 LTS versiooni ja lülitame lisatööriistad välja
+echo "mysql-apt-config mysql-apt-config/select-server select mysql-8.4-lts" | debconf-set-selections
+echo "mysql-apt-config mysql-apt-config/select-tools select Disabled"      | debconf-set-selections
+echo "mysql-apt-config mysql-apt-config/select-product select Ok"         | debconf-set-selections
+
+# 2. Määrame root-parooli
+echo "mysql-community-server mysql-community-server/root-pass password qwerty"     | debconf-set-selections
+echo "mysql-community-server mysql-community-server/re-root-pass password qwerty" | debconf-set-selections
+
+# 3. Autentimisplugin
+echo "mysql-community-server mysql-server/default-auth-override select Use Strong Password Encryption (RECOMMENDED)" | debconf-set-selections
+
+# 4. Laeme alla ja seadistame MySQL APT repositooriumi
+wget -O /tmp/mysql-apt-config_0.8.40-1_all.deb https://dev.mysql.com/get/mysql-apt-config_0.8.40-1_all.deb
+dpkg -i /tmp/mysql-apt-config_0.8.40-1_all.deb
+
+# 5. Uuendame paketiinfo ja paigaldame MySQL Serveri
+apt update
+apt install -y mysql-server
+
+# 6. Lubame ja käivitame teenuse
+systemctl enable --now mysql
+
+echo "Valmis: Oracle MySQL 8.4 LTS on paigaldatud. Root-parool: qwerty"
+mysql --version || true
